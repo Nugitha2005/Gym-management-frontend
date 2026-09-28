@@ -1,0 +1,222 @@
+/*
+ * PlayBook theme — the single source of truth for colour, type, shape and motion.
+ *
+ * Colours come from design-reference/PLAYBOOK_DESIGN_SYSTEM.md.
+ * The Dala reference only contributes layout, type rhythm and motion ideas
+ * (the oversized weight-400 display type, 18px light body copy, uppercase tracked
+ * labels, 6px spacing rhythm and the triangle particle field) — never its colours or font.
+ *
+ * Every token below becomes a Tailwind utility (e.g. --color-orange -> bg-orange, text-orange)
+ * and a CSS variable (var(--color-orange)) for canvas code and inline SVG.
+ * Components must use these tokens; no hex values anywhere else in src/.
+ */
+@import "tailwindcss";
+
+@theme static {
+  /* Only PlayBook colours exist — Tailwind's default palette is switched off. */
+  --color-*: initial;
+
+  /* ---------- Brand ---------- */
+  --color-navy: #0a2540; /* top bar, sidebar, headings, landing canvas */
+  --color-navy-mid: #0d3052; /* brand-panel gradient middle stop */
+  --color-ocean: #13406b; /* secondary buttons, active nav, links */
+  --color-ocean-soft: #4f8bd6; /* ocean tint readable on navy (particles, landing accents) */
+  --color-orange: #ff6b35; /* the single accent — text on it is navy */
+  --color-orange-ink: #a93c0c; /* orange text on light surfaces */
+  --color-orange-wash: #fff4ee; /* waitlist offer panel */
+  --color-orange-edge: #ffd2bd;
+  --color-orange-track: #ffdccb;
+  --color-white: #ffffff;
+  --color-off-white: #f7f9fc; /* page background */
+
+  /* ---------- Text ---------- */
+  --color-ink: #0a2540; /* primary text = deep navy */
+  --color-muted: #4a5a70; /* secondary text (text-muted; text-secondary is the 14px size) */
+  --color-placeholder: #8392a6;
+  --color-on-navy: #b7c4d6; /* secondary text / inactive nav on navy */
+  --color-on-navy-muted: #9fb3cc; /* labels on navy */
+
+  /* ---------- Lines and fills ---------- */
+  --color-line: #e6ecf3; /* card border */
+  --color-line-strong: #d5dee8; /* input border */
+  --color-line-hover: #c9d6e6;
+  --color-divider: #eef2f6; /* hairline dividers */
+  --color-ghost-hover: #f1f5fa; /* ghost button hover */
+  --color-tile: #eef3f9; /* icon tile */
+  --color-track: #e9eff6; /* segmented tab track, progress track */
+
+  /* ---------- Status ---------- */
+  --color-success: #1f9d6b;
+  --color-success-ink: #146b49;
+  --color-success-bg: #e4f5ee;
+  --color-success-wash: #eaf7f1;
+  --color-success-edge: #bfe5d4;
+  --color-warning: #e8a317;
+  --color-warning-ink: #8a5a00;
+  --color-warning-bg: #fdf3dc;
+  --color-danger: #d64545;
+  --color-danger-ink: #a62f2f;
+  --color-danger-text: #b23434;
+  --color-danger-bg: #fbe7e7;
+  --color-danger-hover: #fdf0f0;
+  --color-danger-edge: #efc6c6;
+  --color-danger-strong: #c23b3b; /* confirm button in destructive dialogs */
+  --color-neutral: #64748b;
+  --color-neutral-ink: #475569;
+  --color-neutral-bg: #eef1f5;
+  --color-idle: #94a3b8; /* "not inside" dot */
+
+  /* ---------- Type: Plus Jakarta Sans everywhere (200–800) ---------- */
+  --font-sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+
+  /* App scale (PlayBook design system) */
+  --text-display: 3rem; /* 48 / 800 */
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: 1.75rem; /* 28 */
+  --text-h1--line-height: 1.2;
+  --text-h1--letter-spacing: -0.015em;
+  --text-status: 1.125rem; /* 18 / 700 */
+  --text-status--line-height: 1.3;
+  --text-card-title: 1rem; /* 16 / 700 */
+  --text-card-title--line-height: 1.35;
+  --text-body: 0.9375rem; /* 15 / 500 */
+  --text-body--line-height: 1.5;
+  --text-secondary: 0.875rem; /* 14 / 500 */
+  --text-secondary--line-height: 1.45;
+  --text-label: 0.75rem; /* 12 / 700 */
+  --text-label--line-height: 1.3;
+
+  /* Landing scale (Dala rhythm: weight 400, tight tracking, scale does the work) */
+  --text-hero: clamp(3.25rem, 7.4vw, 7rem); /* ~112px desktop */
+  --text-hero--line-height: 0.98;
+  --text-hero--letter-spacing: -0.04em;
+  --text-section: clamp(2.25rem, 4.4vw, 3.5rem);
+  --text-section--line-height: 1.05;
+  --text-section--letter-spacing: -0.035em;
+  --text-lead: 1.125rem; /* 18px light body copy */
+  --text-lead--line-height: 1.6;
+
+  --tracking-nav: 0.025em; /* 14px uppercase nav labels */
+  --tracking-label: 0.08em;
+  --tracking-eyebrow: 0.12em;
+
+  /* ---------- Shape ---------- */
+  --radius-card: 16px;
+  --radius-control: 12px; /* buttons, inputs, icon tiles */
+
+  --shadow-card: 0 1px 2px rgb(10 37 64 / 0.04), 0 4px 16px rgb(10 37 64 / 0.05);
+  --shadow-raised: 0 1px 2px rgb(10 37 64 / 0.04), 0 8px 24px rgb(10 37 64 / 0.06);
+  --shadow-hover: 0 2px 4px rgb(10 37 64 / 0.05), 0 10px 24px rgb(10 37 64 / 0.08);
+  --shadow-id: 0 1px 2px rgb(10 37 64 / 0.08), 0 10px 28px rgb(10 37 64 / 0.16);
+  --shadow-button: 0 1px 2px rgb(10 37 64 / 0.1);
+  --shadow-drawer: 12px 0 40px rgb(10 37 64 / 0.35);
+  --shadow-dialog: 0 24px 64px rgb(10 37 64 / 0.28);
+  --shadow-sheet: -16px 0 48px rgb(10 37 64 / 0.18);
+  --shadow-sheet-up: 0 -16px 48px rgb(10 37 64 / 0.18);
+
+  /* Layout: Dala's 1280px content width; spacing uses Tailwind's 4px scale (py-30 = 120px) */
+  --container-page: 80rem;
+
+  /* ---------- Motion ---------- */
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-live-dot: live-dot 2s ease-out infinite;
+  --animate-scan-line: scan-line 2.2s ease-in-out infinite alternate;
+  --animate-spin: spin 0.8s linear infinite;
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgb(255 107 53 / 0.55); }
+    70% { box-shadow: 0 0 0 16px rgb(255 107 53 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(255 107 53 / 0); }
+  }
+  @keyframes live-dot {
+    0% { box-shadow: 0 0 0 0 rgb(31 157 107 / 0.5); }
+    70% { box-shadow: 0 0 0 8px rgb(31 157 107 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(31 157 107 / 0); }
+  }
+  @keyframes scan-line {
+    from { top: 4%; }
+    to { top: 94%; }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-ink);
+    background: var(--color-off-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  a {
+    color: var(--color-ocean);
+  }
+  a:hover {
+    color: var(--color-navy);
+  }
+  ::placeholder {
+    color: var(--color-placeholder);
+    opacity: 1;
+  }
+  /* Orange focus ring on every focusable element */
+  :focus-visible {
+    outline: 3px solid rgb(255 107 53 / 0.6);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: rgb(255 107 53 / 0.25);
+  }
+}
+
+/* Button press: scale to 0.97 for 150ms (design system) */
+@utility press {
+  transition:
+    transform 150ms ease,
+    filter 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+/* Printing the gym QR code: only the poster card is printed */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    box-shadow: none;
+    justify-content: center;
+  }
+}
+
+/* All motion is switched off when the device asks for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
