@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { ApiError, errorMessage } from "../../api/client";
 import type { RegisterRequest } from "../../api/types";
 import { useAuth } from "../../auth/AuthContext";
 import { homePath } from "../../auth/roles";
+import { LoadBar } from "../../components/brand/LoadBar";
 import { Button } from "../../components/ui/Button";
 import { Field, Input, PasswordInput } from "../../components/ui/Field";
 import { Alert } from "../../components/ui/Feedback";
 import { Icon } from "../../components/ui/Icon";
 import { AuthLayout } from "../../layouts/AuthLayout";
+import { useAuthScene } from "../../layouts/authScene";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD = 6; // RegisterRequestDto: @Size(min = 6)
@@ -46,12 +48,40 @@ function PasswordHint({ length }: { length: number }) {
 }
 
 export default function Register() {
+  return (
+    <AuthLayout wide athlete="raise">
+      <RegisterForm />
+    </AuthLayout>
+  );
+}
+
+/** The form sits inside AuthLayout so it can reach the lateral-raise athlete through useAuthScene(). */
+function RegisterForm() {
   const { register } = useAuth();
   const navigate = useNavigate();
+  const lifter = useAuthScene();
   const [form, setForm] = useState<RegisterRequest>(empty);
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [shake, setShake] = useState(0);
+
+  // "Load the bar": one plate per required field that is filled in correctly
+  const loaded = [
+    form.name.trim() !== "",
+    form.universityId.trim() !== "",
+    EMAIL.test(form.email.trim()),
+    form.password.length >= MIN_PASSWORD,
+  ];
+  const plates = loaded.filter(Boolean).length;
+  const lastPlates = useRef(plates);
+  useEffect(() => {
+    if (plates > lastPlates.current) {
+      lifter?.bump(0.5);
+      if (plates === loaded.length) lifter?.set("hold"); // every field done: the athlete holds the raise
+    }
+    lastPlates.current = plates;
+  }, [plates, loaded.length, lifter]);
 
   const set = (name: FieldName) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((f) => ({ ...f, [name]: e.target.value }));
@@ -75,9 +105,14 @@ export default function Register() {
     setFormError(null);
     const found = validate();
     setErrors(found);
-    if (Object.keys(found).length > 0) return;
+    if (Object.keys(found).length > 0) {
+      lifter?.set("fail");
+      setShake((n) => n + 1);
+      return;
+    }
 
     setSubmitting(true);
+    lifter?.set("effort");
     try {
       const user = await register({
         name: form.name.trim(),
@@ -88,6 +123,8 @@ export default function Register() {
       });
       navigate(homePath(user.roleName), { replace: true });
     } catch (err) {
+      lifter?.set("fail");
+      setShake((n) => n + 1);
       if (err instanceof ApiError && Object.keys(err.fieldErrors).length > 0) {
         setErrors(err.fieldErrors as Errors);
       } else if (err instanceof ApiError && /email/i.test(err.message)) {
@@ -99,11 +136,12 @@ export default function Register() {
       }
     } finally {
       setSubmitting(false);
+      if (lifter?.mode === "effort") lifter.set("normal");
     }
   }
 
   return (
-    <AuthLayout wide>
+    <>
       <form noValidate onSubmit={onSubmit} className="flex flex-col gap-6 lg:gap-[26px]">
         <div className="flex flex-col gap-1.5 lg:gap-2">
           <h1 className="m-0 text-[26px] leading-tight font-extrabold tracking-[-0.015em] text-ink lg:text-[30px]">
@@ -172,6 +210,8 @@ export default function Register() {
           </Field>
         </div>
 
+        <LoadBar loaded={loaded} bonus={form.contactNo.trim() !== ""} shake={shake} />
+
         <Button type="submit" size="lg" block loading={submitting}>
           Create account
         </Button>
@@ -183,6 +223,6 @@ export default function Register() {
           </Link>
         </p>
       </form>
-    </AuthLayout>
+    </>
   );
 }
