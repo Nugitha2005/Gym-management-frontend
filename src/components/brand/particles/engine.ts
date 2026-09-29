@@ -1,5 +1,5 @@
 /*
- * The particle engine behind every PlayBook animation: small outlined triangles on a 2D canvas.
+ * The particle engine behind every animation in the app: small outlined triangles on a 2D canvas.
  *
  * A *scene* decides where each of its particles should be (its target) and how visible it is; the engine
  * springs every particle towards its target, adds a light field of drifting "ambient" triangles, pushes

@@ -1,5 +1,5 @@
 // Line icons, 24px grid, 1.8 stroke (design system "Icon tile: line icons, 1.8 stroke").
-// Nav icons are copied from the playbook-screens mockups so they match exactly.
+// Nav icons are copied from the screen mockups so they match exactly.
 
 const paths = {
   dumbbell: <path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11" />,

@@ -119,7 +119,7 @@ function LoginForm() {
       </Button>
 
       <p className="m-0 text-center text-[14px] text-muted">
-        New to PlayBook?{" "}
+        New here?{" "}
         <Link to="/register" className="font-bold no-underline hover:underline">
           Create an account
         </Link>

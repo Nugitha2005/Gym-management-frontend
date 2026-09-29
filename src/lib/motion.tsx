@@ -1,4 +1,4 @@
-// Shared Framer Motion settings from the PlayBook design system:
+// Shared Framer Motion settings from the app's design system:
 //   card entrance: fade + slide up 14px, 350ms cubic-bezier(.2,.8,.2,1), 60ms stagger
 //   numbers: count up from 0, ease-out 900ms
 // Everything renders in its final state when the device asks for reduced motion.

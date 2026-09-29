@@ -13,7 +13,7 @@ import { CountUp, Rise, Stagger } from "../../lib/motion";
 import { EquipmentVisual, MedicalVisual, QrCheckInVisual, SessionsVisual, StaffVisual } from "./landing/FeatureVisuals";
 
 /*
- * Public landing page — Dala's layout, type rhythm and motion, recoloured with PlayBook tokens:
+ * Public landing page — Dala's layout, type rhythm and motion, recoloured with the app's theme tokens:
  * deep navy canvas instead of black, orange instead of violet, Plus Jakarta Sans instead of PPNeueMontreal.
  * Oversized weight-400 headlines with tight tracking, 18px light body copy, uppercase tracked labels,
  * one orange pill per view, zigzag two-column sections.
@@ -52,7 +52,7 @@ function TopNav() {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       <nav aria-label="Main" className={cn(wrap, "flex h-20 items-center justify-between gap-6 lg:h-24")}>
-        <Link to="/" aria-label="PlayBook home" className="no-underline">
+        <Link to="/" aria-label="Campus Gym home" className="no-underline">
           <Logo size="md" />
         </Link>
         <div className="hidden items-center gap-9 md:flex">
@@ -139,7 +139,7 @@ const features: Feature[] = [
   {
     eyebrow: "QR check-in",
     title: "Scan in. Scan out. That’s the whole visit.",
-    body: "Scan the gym QR code at the door and PlayBook checks you in — scan again on your way out. No sign-in sheet and no queue at the desk.",
+    body: "Scan the gym QR code at the door and the system checks you in — scan again on your way out. No sign-in sheet and no queue at the desk.",
     points: [
       "Works with your phone camera, or type the code under the QR",
       "Booked members are matched to their session automatically",
@@ -151,7 +151,7 @@ const features: Feature[] = [
   {
     eyebrow: "Medical clearance",
     title: "Cleared by the university doctor, once.",
-    body: "Upload your medical form as a PDF or a photo. The campus doctor reviews it in PlayBook and sets how long your clearance lasts — the countdown sits on your home screen.",
+    body: "Upload your medical form as a PDF or a photo. The campus doctor reviews it online and sets how long your clearance lasts — the countdown sits on your home screen.",
     points: ["PDF, JPG or PNG up to 5 MB", "The doctor’s reason is shown if a form is rejected", "Check-in unlocks the moment you are approved"],
     visual: <MedicalVisual />,
     workout: "plank",
@@ -193,7 +193,7 @@ function Features() {
       <div className={wrap}>
         <Stagger inView className="flex max-w-3xl flex-col gap-5">
           <Rise as="p" className={eyebrow}>
-            What PlayBook does
+            What the system does
           </Rise>
           <Rise as="h2" id="features-title" className="m-0 text-section font-normal text-balance text-white">
             Everything the front desk used to do on paper.
@@ -249,7 +249,7 @@ function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }
   );
 }
 
-// Real PlayBook rules from the backend (CheckInService, TrainingSessionRequestDto, DoctorIncidentHandler),
+// Real gym rules from the backend (CheckInService, TrainingSessionRequestDto, DoctorIncidentHandler),
 // not made-up usage numbers — there is no public endpoint for live counts yet.
 const numbers: Array<{ value: number; suffix?: string; label: string; note: string }> = [
   { value: 20, label: "people in the gym at once", note: "Capacity is counted live at the door." },
@@ -264,7 +264,7 @@ function Numbers() {
       <div className={wrap}>
         <Stagger inView className="flex flex-col gap-12">
           <Rise as="h2" id="numbers-title" className={eyebrow}>
-            PlayBook by the rules
+            The gym by the rules
           </Rise>
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {numbers.map((n) => (
@@ -286,7 +286,7 @@ function Numbers() {
 
 const steps = [
   { title: "Create an account", body: "Register with your university ID and email. It takes about a minute." },
-  { title: "Upload your medical form", body: "A PDF or a photo, up to 5 MB. The university doctor reviews it in PlayBook." },
+  { title: "Upload your medical form", body: "A PDF or a photo, up to 5 MB. The university doctor reviews it online." },
   { title: "Book a session", body: "Pick a time that suits you. If it’s full, join the waitlist and wait for an offer." },
   { title: "Scan in at the door", body: "Scan the QR code by the door to check in, and again when you leave." },
 ];
@@ -352,7 +352,7 @@ function Footer() {
         <div className="flex flex-col gap-4">
           <Logo size="sm" />
           <p className="m-0 max-w-xs text-[14px] font-light text-on-navy">
-            The SLIIT campus gym, run on PlayBook.
+            The SLIIT campus gym, without the paperwork.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 text-[14px] sm:grid-cols-2 md:gap-16">
@@ -372,7 +372,7 @@ function Footer() {
         </div>
       </div>
       <div className={cn(wrap, "mt-10 flex flex-col gap-2 border-t border-white/8 pt-6 text-[13px] text-on-navy-muted sm:flex-row sm:justify-between")}>
-        <span>© {new Date().getFullYear()} PlayBook</span>
+        <span>© {new Date().getFullYear()} SLIIT Campus Gym</span>
         <span>SE2012 · SE2032 group project</span>
       </div>
     </footer>

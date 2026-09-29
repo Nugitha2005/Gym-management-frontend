@@ -10,7 +10,7 @@ import { cn } from "../lib/cn";
 import { navFor, navLabel, type NavSection } from "./navigation";
 
 /**
- * Authenticated layout from the playbook-screens mockups:
+ * Authenticated layout from the screen mockups:
  * 64px navy top bar, 248px navy sidebar, off-white content area.
  * Below 1024px the sidebar becomes a slide-in drawer opened from the top bar.
  */
@@ -60,7 +60,7 @@ export function AppShell() {
         <Link
           to={homePath(user.roleName)}
           className="relative flex items-center px-2 no-underline lg:w-[248px] lg:px-6"
-          aria-label="PlayBook home"
+          aria-label="Campus Gym home"
         >
           <Logo size="sm" />
         </Link>

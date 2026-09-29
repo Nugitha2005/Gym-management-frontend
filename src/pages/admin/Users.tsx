@@ -110,7 +110,7 @@ export default function AdminUsers() {
 
   return (
     <Stagger className="flex flex-col gap-6">
-      <PageHeader eyebrow="Admin · People" title="Users" description="Everyone registered in PlayBook. A user’s role decides which screens they see." />
+      <PageHeader eyebrow="Admin · People" title="Users" description="Everyone registered in the system. A user’s role decides which screens they see." />
 
       <Rise className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative w-full sm:max-w-sm">
