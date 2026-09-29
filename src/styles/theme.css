@@ -1,7 +1,7 @@
 /*
- * PlayBook theme — the single source of truth for colour, type, shape and motion.
+ * Gym app theme — the single source of truth for colour, type, shape and motion.
  *
- * Colours come from design-reference/PLAYBOOK_DESIGN_SYSTEM.md.
+ * Colours come from the design reference.
  * The Dala reference only contributes layout, type rhythm and motion ideas
  * (the oversized weight-400 display type, 18px light body copy, uppercase tracked
  * labels, 6px spacing rhythm and the triangle particle field) — never its colours or font.
@@ -13,7 +13,7 @@
 @import "tailwindcss";
 
 @theme static {
-  /* Only PlayBook colours exist — Tailwind's default palette is switched off. */
+  /* Only the app's colours exist — Tailwind's default palette is switched off. */
   --color-*: initial;
 
   /* ---------- Brand ---------- */
@@ -69,7 +69,7 @@
   /* ---------- Type: Plus Jakarta Sans everywhere (200–800) ---------- */
   --font-sans: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
 
-  /* App scale (PlayBook design system) */
+  /* App scale (design system) */
   --text-display: 3rem; /* 48 / 800 */
   --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.02em;

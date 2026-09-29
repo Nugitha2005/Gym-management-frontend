@@ -2,7 +2,7 @@ import { ParticleCanvas } from "./particles/ParticleCanvas";
 import { DumbbellScene, EmptyScene } from "./particles/scenes";
 
 /*
- * The PlayBook take on Dala's signature visual: small outlined triangles that fly in and assemble into
+ * Our take on Dala's signature visual: small outlined triangles that fly in and assemble into
  * a dumbbell, drift gently and shy away from the mouse, over a sparse field of ambient triangles.
  * With shape="none" only the ambient field is drawn. For the animated athletes see ParticleAthlete.
  * The engine itself lives in ./particles (pauses off-screen, still frame under prefers-reduced-motion).

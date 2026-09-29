@@ -1,4 +1,4 @@
-// Small pieces of PlayBook business logic shared by several screens.
+// Small pieces of gym business logic shared by several screens.
 import type { Clearance, ClearanceStatus, Equipment, GoalType, IncidentType, SlotType } from "../api/types";
 import type { BadgeTone } from "../components/ui/Badge";
 import type { IconName } from "../components/ui/Icon";

@@ -1,4 +1,4 @@
-# PlayBook frontend
+# Campus Gym frontend
 
 React + TypeScript + Vite + Tailwind CSS v4 + Framer Motion. It talks to the Spring Boot API in this repo.
 
@@ -25,12 +25,12 @@ Other scripts: `npm run typecheck`, `npm run build` (type-checks, then writes `d
 
 | Path | What |
 |---|---|
-| `src/styles/theme.css` | **The only place colours, fonts, radii, shadows and motion timings are defined** (Tailwind v4 `@theme`). Tailwind's default palette is switched off, so only PlayBook colours exist. |
+| `src/styles/theme.css` | **The only place colours, fonts, radii, shadows and motion timings are defined** (Tailwind v4 `@theme`). Tailwind's default palette is switched off, so only the app's own colours exist. |
 | `src/api/` | `client.ts` (fetch wrapper, error handling), `endpoints.ts` (one group per Spring controller), `types.ts` (DTO shapes) |
 | `src/auth/` | Session login state (`AuthContext`), route guards (`RequireRole`), role helpers |
 | `src/components/ui/` | Button, Field/Input/Select/Textarea, Card, Badge, StatCard, PageHeader, Tabs, ChoiceGroup, Dialog/Sheet, DataTable, Feedback (alerts, toasts, progress) |
 | `src/components/brand/` | Logo, `ParticleField` (the canvas triangle field), `TrianglePattern` (static pattern for the navy chrome) |
-| `src/components/domain/` | PlayBook-specific pieces: waitlist offer banner, session card, QR scanner, BMI panel, incident progress |
+| `src/components/domain/` | Gym-specific pieces: waitlist offer banner, session card, QR scanner, BMI panel, incident progress |
 | `src/layouts/` | `AppShell` (navy top bar + sidebar + phone drawer), `AuthLayout` (login/register), `navigation.ts` (menu per role) |
 | `src/pages/` | `public/`, `member/`, `trainer/`, `doctor/`, `admin/`, and `staff/` for pages shared by several roles |
 
@@ -49,7 +49,7 @@ The backend still checks every request with `@PreAuthorize`; the route guards on
 
 ## Design rules
 
-- Colours and font come from `design-reference/PLAYBOOK_DESIGN_SYSTEM.md`. The Dala reference is used only for layout, type rhythm and motion (landing page, and small hints in the app).
+- Colours and font come from the design reference. The Dala reference is used only for layout, type rhythm and motion (landing page, and small hints in the app).
 - One orange action per screen; text on orange is navy.
 - All motion is off when the device asks for reduced motion (CSS rule in `theme.css`, `MotionConfig reducedMotion="user"`, and a still frame for the particle canvas).
 - Every page works down to 390px wide; tables turn into stacked cards on phones.

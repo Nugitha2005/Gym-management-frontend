@@ -41,7 +41,7 @@ export function AuthLayout({
   return (
     <div className="min-h-dvh bg-white lg:flex lg:bg-off-white">
       <section
-        aria-label="PlayBook"
+        aria-label="SLIIT Campus Gym"
         className={cn(
           "relative flex min-h-[312px] flex-col justify-between overflow-hidden px-5 pt-7 pb-14 text-white",
           "bg-linear-160 from-navy via-navy-mid via-58% to-ocean",
@@ -78,7 +78,7 @@ export function AuthLayout({
         )}
 
         <motion.div {...rise(0)} className="relative">
-          <Link to="/" aria-label="PlayBook home" className="inline-flex no-underline">
+          <Link to="/" aria-label="Campus Gym home" className="inline-flex no-underline">
             <Logo size={desktop ? "lg" : "md"} />
           </Link>
         </motion.div>

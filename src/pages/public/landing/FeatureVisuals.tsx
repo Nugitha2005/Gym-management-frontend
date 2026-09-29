@@ -1,4 +1,4 @@
-// Small, static versions of real PlayBook app cards, shown on the landing page.
+// Small, static versions of real app cards, shown on the landing page.
 // They reuse the app's components so the landing page previews exactly what members get.
 import { useMemo } from "react";
 import { Badge, LiveDot } from "../../../components/ui/Badge";
@@ -60,7 +60,7 @@ function QrPattern({ size = 25 }: { size?: number }) {
 
 export function QrCheckInVisual() {
   return (
-    <Frame label="Preview of the PlayBook check-in screen: a QR code tile with a pulsing orange ring and a welcome message.">
+    <Frame label="Preview of the check-in screen: a QR code tile with a pulsing orange ring and a welcome message.">
       <MiniCard className="flex flex-col gap-5 p-6">
         <CardTitle icon="scan" aside={<Badge tone="success" live size="sm">Camera on</Badge>}>
           Scan the gym QR code

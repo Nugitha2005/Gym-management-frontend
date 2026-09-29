@@ -28,7 +28,7 @@ export function FullPageLoader({ tone = "light" }: { tone?: "light" | "navy" }) 
       )}
     >
       <Spinner size={28} />
-      <span className="sr-only">Loading PlayBook…</span>
+      <span className="sr-only">Loading…</span>
     </div>
   );
 }

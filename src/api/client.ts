@@ -78,7 +78,7 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
     });
   } catch (err) {
     if ((err as Error).name === "AbortError") throw err;
-    throw new ApiError(0, "Can't reach the PlayBook server. Check that the backend is running.");
+    throw new ApiError(0, "Can't reach the gym server. Check that the backend is running.");
   }
 
   if (!res.ok) {

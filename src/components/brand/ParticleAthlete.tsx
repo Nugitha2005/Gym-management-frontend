@@ -4,7 +4,7 @@ import { MOTIONS, type AthleteKind } from "./particles/poses";
 import { AthleteScene } from "./particles/scenes";
 
 /*
- * A muscular athlete made of the PlayBook triangles, doing one exercise on a loop:
+ * A muscular athlete made of the app's triangles, doing one exercise on a loop:
  *   squat — landing hero (starts as the dumbbell, which dissolves into the athlete)
  *   bench — login panel
  *   raise — register panel (dumbbell lateral raises)
