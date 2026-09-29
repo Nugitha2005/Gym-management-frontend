@@ -1,20 +1,34 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router";
 import { Logo } from "../components/brand/Logo";
+import { ParticleAthlete } from "../components/brand/ParticleAthlete";
 import { ParticleField } from "../components/brand/ParticleField";
+import { MotionControl } from "../components/brand/particles/control";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { cn } from "../lib/cn";
 import { EASE_SOFT } from "../lib/motion";
+import { AuthSceneContext } from "./authScene";
 
 /**
  * Login / register layout (01_Login, 02_Register, 03_Login_mobile).
- * Left: navy gradient brand panel with the Dala hint — a low-density triangle field
- * and a weight-400, tight-tracked headline. Right: the white form card.
- * On phones the panel sits on top and the form slides up over it as a white sheet.
+ * Left: navy gradient brand panel with the Dala hint — a triangle-particle athlete (bench press on login,
+ * lateral raises on register) and a weight-400, tight-tracked headline. Right: the white form card.
+ * The athlete reacts to the form: typing speeds up the reps, and the form can signal effort or a mistake
+ * through useAuthScene(). On phones the panel sits on top and the form slides up over it as a white sheet.
  */
-export function AuthLayout({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) {
+export function AuthLayout({
+  children,
+  wide = false,
+  athlete = "bench",
+}: {
+  children: React.ReactNode;
+  wide?: boolean;
+  athlete?: "bench" | "raise";
+}) {
   const desktop = useMediaQuery("(min-width: 1024px)");
   const reduce = useReducedMotion();
+  const [control] = useState(() => new MotionControl());
   const rise = (delay: number) =>
     reduce
       ? {}
@@ -50,14 +64,18 @@ export function AuthLayout({ children, wide = false }: { children: React.ReactNo
           <circle cx="380" cy="150" r="70" />
         </svg>
 
-        <ParticleField
-          shape={desktop ? "dumbbell" : "none"}
-          density={0.5}
-          ambient={desktop ? 0.55 : 0.7}
-          shapeOpacity={0.6}
-          placement={{ x: 0.6, y: 0.47, size: 0.62 }}
-          tilt={-24}
-        />
+        {desktop ? (
+          <ParticleAthlete
+            kind={athlete}
+            control={control}
+            box={{ x: 0.56, y: 0.37, w: 0.84, h: 0.46 }}
+            spacing={4.2}
+            ambient={0.45}
+            opacity={0.85}
+          />
+        ) : (
+          <ParticleField shape="none" ambient={0.7} />
+        )}
 
         <motion.div {...rise(0)} className="relative">
           <Link to="/" aria-label="PlayBook home" className="inline-flex no-underline">
@@ -74,6 +92,7 @@ export function AuthLayout({ children, wide = false }: { children: React.ReactNo
       </section>
 
       <main
+        onInput={() => control.bump(0.2)}
         className={cn(
           "relative -mt-6 rounded-t-[24px] bg-white px-5 pt-8 pb-10",
           "lg:mt-0 lg:flex lg:min-h-dvh lg:flex-1 lg:items-center lg:justify-center lg:rounded-none lg:bg-transparent lg:px-12 lg:py-10",
@@ -88,7 +107,7 @@ export function AuthLayout({ children, wide = false }: { children: React.ReactNo
             wide ? "lg:px-10 lg:pt-10 lg:pb-8" : "lg:px-10 lg:pt-11 lg:pb-9",
           )}
         >
-          {children}
+          <AuthSceneContext.Provider value={control}>{children}</AuthSceneContext.Provider>
         </motion.div>
       </main>
     </div>

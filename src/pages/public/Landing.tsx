@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import { Link } from "react-router";
 import { Logo } from "../../components/brand/Logo";
+import { ParticleAthlete } from "../../components/brand/ParticleAthlete";
 import { ParticleField } from "../../components/brand/ParticleField";
+import type { Exercise } from "../../components/brand/particles/poses";
+import { WorkoutTrack } from "../../components/brand/WorkoutTrack";
 import { LinkButton } from "../../components/ui/Button";
 import { Icon } from "../../components/ui/Icon";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
@@ -14,6 +17,9 @@ import { EquipmentVisual, MedicalVisual, QrCheckInVisual, SessionsVisual, StaffV
  * deep navy canvas instead of black, orange instead of violet, Plus Jakarta Sans instead of PPNeueMontreal.
  * Oversized weight-400 headlines with tight tracking, 18px light body copy, uppercase tracked labels,
  * one orange pill per view, zigzag two-column sections.
+ * Motion: the hero's triangles form a dumbbell that turns into an athlete doing squats, and on desktop
+ * a small athlete runs along the bottom of the page as you scroll, doing each section's exercise
+ * (sections opt in with data-workout).
  */
 
 const wrap = "mx-auto w-full max-w-page px-5 sm:px-8";
@@ -23,6 +29,7 @@ const lead = "m-0 text-lead font-light text-on-navy";
 export default function Landing() {
   return (
     <div className="min-h-dvh bg-navy text-white">
+      <WorkoutTrack />
       <a
         href="#features"
         className="sr-only z-50 rounded-control bg-orange px-4 py-2 font-bold text-navy focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -77,7 +84,13 @@ function Hero() {
   const desktop = useMediaQuery("(min-width: 1024px)");
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      <ParticleField anchorRef={visualRef} density={desktop ? 1 : 0.55} ambient={desktop ? 1 : 0.8} tilt={-18} />
+      <ParticleAthlete
+        kind="squat"
+        intro="dumbbell"
+        anchorRef={visualRef}
+        spacing={desktop ? 5 : 6.5}
+        ambient={desktop ? 1 : 0.8}
+      />
       <div
         className={cn(
           wrap,
@@ -104,7 +117,7 @@ function Hero() {
             </Link>
           </Rise>
         </Stagger>
-        {/* The dumbbell assembles inside this box (the canvas covers the whole hero). */}
+        {/* The dumbbell, then the squatting athlete, forms inside this box (the canvas covers the whole hero). */}
         <div ref={visualRef} aria-hidden="true" className="h-[300px] sm:h-[400px] lg:h-[600px]" />
       </div>
     </section>
@@ -118,6 +131,8 @@ interface Feature {
   body: string;
   points: string[];
   visual: React.ReactNode;
+  /** What the runner at the bottom of the page does while this section is in view. */
+  workout: Exercise;
 }
 
 const features: Feature[] = [
@@ -131,6 +146,7 @@ const features: Feature[] = [
       "The front desk can check in members who forgot their phone",
     ],
     visual: <QrCheckInVisual />,
+    workout: "pushup",
   },
   {
     eyebrow: "Medical clearance",
@@ -138,6 +154,7 @@ const features: Feature[] = [
     body: "Upload your medical form as a PDF or a photo. The campus doctor reviews it in PlayBook and sets how long your clearance lasts — the countdown sits on your home screen.",
     points: ["PDF, JPG or PNG up to 5 MB", "The doctor’s reason is shown if a form is rejected", "Check-in unlocks the moment you are approved"],
     visual: <MedicalVisual />,
+    workout: "plank",
   },
   {
     eyebrow: "Sessions and waitlist",
@@ -145,6 +162,7 @@ const features: Feature[] = [
     body: "Book one of up to ten places in a training session. If it’s full, you join the waitlist — when someone cancels, the place is offered to you with a timer to accept.",
     points: ["Peak, off-peak and standard sessions", "Waitlist offers with a clear deadline", "Cancel in one tap before the session starts"],
     visual: <SessionsVisual />,
+    workout: "pulldown",
   },
   {
     eyebrow: "Equipment lending",
@@ -152,6 +170,7 @@ const features: Feature[] = [
     body: "See which balls, rackets and board games are free right now. Items are lent at the front desk with a due time, and late returns are flagged.",
     points: ["Live availability for every item", "Due times and late flags on your home screen", "Your full loan history in one list"],
     visual: <EquipmentVisual />,
+    workout: "curl",
   },
   {
     id: "staff",
@@ -164,6 +183,7 @@ const features: Feature[] = [
       "Role changes and QR code resets for admins",
     ],
     visual: <StaffVisual />,
+    workout: "jacks",
   },
 ];
 
@@ -195,6 +215,7 @@ function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }
       as="article"
       inView
       id={feature.id}
+      data-workout={feature.workout}
       aria-label={feature.eyebrow}
       className="grid scroll-mt-24 items-center gap-12 lg:grid-cols-2 lg:gap-24"
     >
@@ -239,7 +260,7 @@ const numbers: Array<{ value: number; suffix?: string; label: string; note: stri
 
 function Numbers() {
   return (
-    <section aria-labelledby="numbers-title" className="border-y border-white/8 py-20 lg:py-24">
+    <section aria-labelledby="numbers-title" data-workout="squat" className="border-y border-white/8 py-20 lg:py-24">
       <div className={wrap}>
         <Stagger inView className="flex flex-col gap-12">
           <Rise as="h2" id="numbers-title" className={eyebrow}>
@@ -272,7 +293,7 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" aria-labelledby="how-title" className="scroll-mt-8 py-24 lg:py-30">
+    <section id="how-it-works" aria-labelledby="how-title" data-workout="raise" className="scroll-mt-8 py-24 lg:py-30">
       <div className={wrap}>
         <Stagger inView className="flex flex-col gap-16">
           <div className="flex max-w-3xl flex-col gap-5">
@@ -300,7 +321,7 @@ function HowItWorks() {
 
 function FinalCta() {
   return (
-    <section aria-labelledby="cta-title" className="relative overflow-hidden border-t border-white/8">
+    <section aria-labelledby="cta-title" data-workout="celebrate" className="relative overflow-hidden border-t border-white/8">
       <ParticleField shape="none" ambient={0.9} interactive={false} />
       <div className={cn(wrap, "relative py-28 lg:py-40")}>
         <Stagger inView className="flex max-w-4xl flex-col gap-8">
